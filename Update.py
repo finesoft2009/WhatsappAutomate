@@ -154,7 +154,7 @@ for row in data:
             # Registering Error and making way to next report to send
             conn = pymysql.connect("localhost", "root", "root", "messages")
             cur = conn.cursor()
-            update_query = "update messages set whatsapp='E', log = %s where sid = %s" % (sid, st)
+            update_query = "update messages set whatsapp='E', log = %s where sid = %s" % (st, sid)
             cur.execute(update_query)
             conn.commit()
             cur.close()
@@ -183,7 +183,7 @@ for row in data:
         try:
             conn = pymysql.connect("localhost", "root", "root", "messages")
             cur = conn.cursor()
-            update_query = "update whatsapp set whatsapp='S', log = %s where sid = %s" % (sid, st)
+            update_query = "update whatsapp set whatsapp='S', log = %s where sid = %s" % (st, sid)
             cur.execute(update_query)
             conn.commit()
             print(update_query)
