@@ -6,11 +6,17 @@ import pymysql
 import email,smtplib, ssl
 import mss.tools
 import ctypes
+import time
+import datetime
 
 # to set screensize based clicks
 user32 = ctypes.windll.user32
 screensize = user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)
 print(screensize)
+
+# to timestamp
+ts = time.time()
+st = datetime.datetime.fromtimestamp(ts).strftime('%d/%m/%Y %H:%M:%S')
 
 connection = pymysql.connect("localhost", "root", "root", "messages")
 cursor = connection.cursor()
@@ -148,7 +154,7 @@ for row in data:
             # Registering Error and making way to next report to send
             conn = pymysql.connect("localhost", "root", "root", "messages")
             cur = conn.cursor()
-            update_query = "update messages set whatsapp='E' where sid = %s" % sid
+            update_query = "update messages set whatsapp='E', log = %s where sid = %s" % sid, st
             cur.execute(update_query)
             conn.commit()
             cur.close()
@@ -177,7 +183,7 @@ for row in data:
         try:
             conn = pymysql.connect("localhost", "root", "root", "messages")
             cur = conn.cursor()
-            update_query = "update whatsapp set whatsapp='S' where sid = %s" % sid
+            update_query = "update whatsapp set whatsapp='S', log = %s where sid = %s" % sid, st
             cur.execute(update_query)
             conn.commit()
             print(update_query)
