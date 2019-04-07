@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/AutomateWhatsapp.iml" filepath="$PROJECT_DIR$/.idea/AutomateWhatsapp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/WhatsappAutomate.iml" filepath="$PROJECT_DIR$/.idea/WhatsappAutomate.iml" />
     </modules>
   </component>
 </project>
