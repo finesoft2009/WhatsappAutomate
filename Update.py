@@ -1,4 +1,4 @@
-# "Hare Krishna!"
+# Hare Krishna!
 import pyautogui
 import webbrowser
 import pymysql
