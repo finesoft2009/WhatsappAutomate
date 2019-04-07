@@ -1,6 +1,5 @@
-# "Hare Krishna!"
+# Hare Krishna!
 import pyautogui
-import time
 import webbrowser
 import pymysql
 import email,smtplib, ssl
@@ -16,7 +15,7 @@ print(screensize)
 
 # to timestamp
 ts = time.time()
-st = datetime.datetime.fromtimestamp(ts).strftime('%d/%m/%Y %H:%M:%S')
+st = datetime.datetime.fromtimestamp(ts).strftime('%d/%m/%Y %I:%M %p')
 
 connection = pymysql.connect("localhost", "root", "root", "messages")
 cursor = connection.cursor()
@@ -41,7 +40,7 @@ for row in data:
         if screensize == (1600, 900):
             pyautogui.moveTo(792, 350)
         elif screensize == (1366, 768):
-            pyautogui.moveTo(678, 353)
+            pyautogui.moveTo(669, 318)
         pyautogui.click()
         # sendBtnLocation = pyautogui.locateOnScreen("send.png")
         # pyautogui.click('send.png')
@@ -59,7 +58,7 @@ for row in data:
         if screensize == (1600, 900):
             pyautogui.moveTo(1411, 151)
         elif screensize == (1366, 768):
-            pyautogui.moveTo(1281, 133)
+            pyautogui.moveTo(1278, 101)
         pyautogui.click()
         #attach1BtnLocation = pyautogui.locateOnScreen("attachment.png")
         #pyautogui.click('attachment.png')
@@ -68,7 +67,7 @@ for row in data:
         if screensize == (1600, 900):
             pyautogui.moveTo(1411, 359)
         elif screensize == (1366, 768):
-            pyautogui.moveTo(1278, 342)
+            pyautogui.moveTo(1279, 309)
         pyautogui.click()
         #attach2BtnLocation = pyautogui.locateOnScreen("attachment2.png")
         #pyautogui.click('attachment2.png')
@@ -77,17 +76,17 @@ for row in data:
         if screensize == (1600, 900):
             pyautogui.moveTo(202, 446)
         elif screensize == (1366, 768):
-            pyautogui.moveTo(202, 446)
+            pyautogui.moveTo(203, 415)
         pyautogui.click()
         # pyautogui.typewrite(r'C:\xampp\htdocs\xampp')
         pyautogui.typewrite(branch + sid + '.pdf')
         pyautogui.press('enter')
 
-        time.sleep(2)
+        time.sleep(5)
         if screensize == (1600, 900):
             pyautogui.moveTo(1427, 717)
         elif screensize == (1366, 768):
-            pyautogui.moveTo(1294, 603)
+            pyautogui.moveTo(1293, 604)
         pyautogui.click()
         # attach3BtnLocation = pyautogui.locateOnScreen("attachment3.png")
         # pyautogui.click('attachment3.png')
@@ -154,8 +153,9 @@ for row in data:
             # Registering Error and making way to next report to send
             conn = pymysql.connect("localhost", "root", "root", "messages")
             cur = conn.cursor()
-            update_query = "update messages set whatsapp='E', log = %s where sid = %s" % (st, sid)
-            cur.execute(update_query)
+            update_query = "update whatsapp set whatsapp='E', log = %s where sid = %s"
+            val = (st, sid)
+            cur.execute(update_query, val)
             conn.commit()
             cur.close()
             conn.close()
@@ -183,8 +183,9 @@ for row in data:
         try:
             conn = pymysql.connect("localhost", "root", "root", "messages")
             cur = conn.cursor()
-            update_query = "update whatsapp set whatsapp='S', log = %s where sid = %s" % (st, sid)
-            cur.execute(update_query)
+            update_query = "update whatsapp set whatsapp='S', log = %s where sid = %s"
+            val = (st, sid)
+            cur.execute(update_query, val)
             conn.commit()
             print(update_query)
         except Exception as e:
