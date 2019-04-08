@@ -63,7 +63,7 @@ def printer():
             # sendBtnLocation = pyautogui.locateOnScreen("send.png")
             # pyautogui.click('send.png')
 
-            time.sleep(10)
+            time.sleep(15)
             if screensize == (1600, 900):
                 pyautogui.moveTo(1463, 810)
             elif screensize == (1366, 768):
@@ -111,6 +111,19 @@ def printer():
             # pyautogui.click('attachment3.png')
 
             time.sleep(10)
+            # Acknowledgment Screenshot
+            with mss.mss() as sct:
+                # The screen part to capture
+                monitor = {"top": 179, "left": 0, "width": 410, "height": 72}
+                output = "status.png".format(**monitor)
+
+                # Grab the data
+                sct_img = sct.grab(monitor)
+
+                save_path = 'C:/inetpub/ftproot/LabAssistant/whatsapp_status/' + output
+                # Save to the picture file
+                mss.tools.to_png(sct_img.rgb, sct_img.size, output='C:/inetpub/ftproot/LabAssistant/whatsapp_status/' + branch + sid + '.png')
+
             closeBtnLocation = pyautogui.locateOnScreen("close.png")
             pyautogui.click('close.png')
             time.sleep(1)
@@ -181,24 +194,12 @@ def printer():
 
             pyautogui.press('esc')
             pyautogui.press('esc')
-            # Screenshot
-            with mss.mss() as sct:
-                # The screen part to capture
-                monitor = {"top": 103, "left": 252, "width": 407, "height": 572}
-                output = "status.png".format(**monitor)
-
-                # Grab the data
-                sct_img = sct.grab(monitor)
-
-                # Save to the picture file
-                mss.tools.to_png(sct_img.rgb, sct_img.size, output=output)
-                print(output)
 
             closeBtnLocation = pyautogui.locateOnScreen("close.png")
             pyautogui.click('close.png')
 
         else:
-            print("Success!")
+
             try:
                 conn = pymysql.connect("localhost", "root", "root", "messages")
                 cur = conn.cursor()
@@ -206,7 +207,7 @@ def printer():
                 val = (st, sid)
                 cur.execute(update_query, val)
                 conn.commit()
-                print(update_query)
+                print(branch + sid)
             except Exception as e:
                 print(e)
             finally:
