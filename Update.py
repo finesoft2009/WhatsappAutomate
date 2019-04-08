@@ -29,7 +29,7 @@ def printer():
     # to set screensize based clicks
     user32 = ctypes.windll.user32
     screensize = user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)
-    print(screensize)
+    #print(screensize)
 
     # to timestamp
     ts = time.time()
@@ -120,9 +120,9 @@ def printer():
                 # Grab the data
                 sct_img = sct.grab(monitor)
 
-                save_path = 'C:/inetpub/ftproot/LabAssistant/whatsapp_status/' + output
+                save_path = 'E:/xampp/htdocs/whatsapp/whatsapp_status/' + output
                 # Save to the picture file
-                mss.tools.to_png(sct_img.rgb, sct_img.size, output='C:/inetpub/ftproot/LabAssistant/whatsapp_status/' + branch + sid + '.png')
+                mss.tools.to_png(sct_img.rgb, sct_img.size, output='E:/xampp/htdocs/whatsapp/whatsapp_status/' + branch + sid + '.png')
 
             closeBtnLocation = pyautogui.locateOnScreen("close.png")
             pyautogui.click('close.png')
