@@ -50,6 +50,12 @@ def printer():
         chromedir = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s"
         url = "https://api.whatsapp.com/send?phone=91" + recipient + "&text=" + body
         webbrowser.get(chromedir).open(url)
+
+        user32 = ctypes.WinDLL('user32')
+        SW_MAXIMISE = 3
+        hWnd = user32.GetForegroundWindow()
+        user32.ShowWindow(hWnd, SW_MAXIMISE)
+
         try:
             time.sleep(5)
             if screensize == (1600, 900):
