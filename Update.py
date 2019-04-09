@@ -54,6 +54,7 @@ def printer():
         url = "https://api.whatsapp.com/send?phone=" + recipient + "&text=" + body
         webbrowser.get(chromedir).open(url)
         try:
+            pyautogui.FAILSAFE = False  # disables the fail-safe
             time.sleep(5)
             if screensize == (1600, 900):
                 pyautogui.moveTo(792, 350)
@@ -197,6 +198,10 @@ def printer():
 
             closeBtnLocation = pyautogui.locateOnScreen("close.png")
             pyautogui.click('close.png')
+
+            t = PT(1, printer)
+
+            t.start()
 
         else:
 
