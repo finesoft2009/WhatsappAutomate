@@ -53,6 +53,15 @@ def printer():
         chromedir = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s"
         url = "https://api.whatsapp.com/send?phone=" + recipient + "&text=" + body
         webbrowser.get(chromedir).open(url)
+        pyautogui.press(['alt', 'space', 'x'])
+
+        time.sleep(1)
+        pyautogui.keyDown('alt')  # hold down the alt key
+        pyautogui.keyDown('space')
+        pyautogui.press('x')
+        pyautogui.keyUp('shift')  # release the space key
+        pyautogui.keyUp('alt')  # release the alt key
+
         try:
             pyautogui.FAILSAFE = False  # disables the fail-safe
             time.sleep(5)
