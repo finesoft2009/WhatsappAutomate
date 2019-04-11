@@ -5,6 +5,7 @@ import pymysql
 import email, smtplib, ssl
 import mss.tools
 import ctypes
+import cv2
 import time
 import datetime
 
@@ -122,17 +123,29 @@ def printer():
             time.sleep(10)
             try:
                 # Acknowledgment Screenshot
-                with mss.mss() as sct:
+                img = pyautogui.screenshot()
+                img.save('sendimg.jpg')
+                time.sleep(1)
+                image = cv2.imread('sendimg.jpg')
+                y = 179
+                x = 0
+                h = 72
+                w = 410
+                crop = image[y:y + h, x:x + w]
+                #cv2.imshow('Image', crop)
+                cv2.imwrite('E:/xampp/htdocs/whatsapp/whatsapp_status/' + branch + sid + '.png', crop)
+                #cv2.waitKey(0)
+                #with mss.mss() as sct:
                     # The screen part to capture
-                    monitor = {"top": 179, "left": 0, "width": 410, "height": 72}
-                    output = "status.png".format(**monitor)
+                    #monitor = {"top": 179, "left": 0, "width": 410, "height": 72}
+                    #output = "status.png".format(**monitor)
 
                     # Grab the data
-                    sct_img = sct.grab(monitor)
+                    #sct_img = sct.grab(monitor)
 
-                    save_path = 'E:/xampp/htdocs/whatsapp/whatsapp_status/' + output
+                    #save_path = 'E:/xampp/htdocs/whatsapp/whatsapp_status/' + output
                     # Save to the picture file
-                    mss.tools.to_png(sct_img.rgb, sct_img.size, output='E:/xampp/htdocs/whatsapp/whatsapp_status/' + branch + sid + '.png')
+                    #mss.tools.to_png(sct_img.rgb, sct_img.size, output='E:/xampp/htdocs/whatsapp/whatsapp_status/' + branch + sid + '.png')
             except:
                 pass
             finally:
