@@ -2,7 +2,7 @@
 import pyautogui
 import webbrowser
 import pymysql
-import email,smtplib, ssl
+import email, smtplib, ssl
 import mss.tools
 import ctypes
 import time
@@ -26,6 +26,7 @@ class PT():
 
 def printer():
     # function to loop
+    pyautogui.FAILSAFE = False  # disables the fail-safe
     # to set screensize based clicks
     user32 = ctypes.windll.user32
     screensize = user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)
@@ -48,12 +49,10 @@ def printer():
         sid = row[1]
         recipient = row[2]
         body = row[3]
-        whatsapp = row[4]
 
         chromedir = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s"
         url = "https://api.whatsapp.com/send?phone=" + recipient + "&text=" + body
         webbrowser.get(chromedir).open(url)
-        pyautogui.press(['alt', 'space', 'x'])
 
         time.sleep(1)
         pyautogui.keyDown('alt')  # hold down the alt key
@@ -66,7 +65,7 @@ def printer():
             pyautogui.FAILSAFE = False  # disables the fail-safe
             time.sleep(5)
             if screensize == (1600, 900):
-                pyautogui.moveTo(792, 350)
+                pyautogui.moveTo(789, 317)
             elif screensize == (1366, 768):
                 pyautogui.moveTo(669, 318)
             pyautogui.click()
@@ -75,7 +74,7 @@ def printer():
 
             time.sleep(15)
             if screensize == (1600, 900):
-                pyautogui.moveTo(1463, 810)
+                pyautogui.moveTo(1464, 808)
             elif screensize == (1366, 768):
                 pyautogui.moveTo(1329, 696)
             pyautogui.click()
@@ -85,7 +84,7 @@ def printer():
 
             time.sleep(1)
             if screensize == (1600, 900):
-                pyautogui.moveTo(1411, 151)
+                pyautogui.moveTo(1409, 118)
             elif screensize == (1366, 768):
                 pyautogui.moveTo(1278, 101)
             pyautogui.click()
@@ -94,7 +93,7 @@ def printer():
 
             time.sleep(1)
             if screensize == (1600, 900):
-                pyautogui.moveTo(1411, 359)
+                pyautogui.moveTo(1411, 330)
             elif screensize == (1366, 768):
                 pyautogui.moveTo(1279, 309)
             pyautogui.click()
@@ -103,7 +102,7 @@ def printer():
 
             time.sleep(1)
             if screensize == (1600, 900):
-                pyautogui.moveTo(202, 446)
+                pyautogui.moveTo(204, 417)
             elif screensize == (1366, 768):
                 pyautogui.moveTo(203, 415)
             pyautogui.click()
@@ -113,7 +112,7 @@ def printer():
 
             time.sleep(5)
             if screensize == (1600, 900):
-                pyautogui.moveTo(1427, 717)
+                pyautogui.moveTo(1427, 718)
             elif screensize == (1366, 768):
                 pyautogui.moveTo(1293, 604)
             pyautogui.click()
@@ -121,21 +120,30 @@ def printer():
             # pyautogui.click('attachment3.png')
 
             time.sleep(10)
-            # Acknowledgment Screenshot
-            with mss.mss() as sct:
-                # The screen part to capture
-                monitor = {"top": 179, "left": 0, "width": 410, "height": 72}
-                output = "status.png".format(**monitor)
+            try:
+                # Acknowledgment Screenshot
+                with mss.mss() as sct:
+                    # The screen part to capture
+                    monitor = {"top": 179, "left": 0, "width": 410, "height": 72}
+                    output = "status.png".format(**monitor)
 
-                # Grab the data
-                sct_img = sct.grab(monitor)
+                    # Grab the data
+                    sct_img = sct.grab(monitor)
 
-                save_path = 'E:/xampp/htdocs/whatsapp/whatsapp_status/' + output
-                # Save to the picture file
-                mss.tools.to_png(sct_img.rgb, sct_img.size, output='E:/xampp/htdocs/whatsapp/whatsapp_status/' + branch + sid + '.png')
+                    save_path = 'E:/xampp/htdocs/whatsapp/whatsapp_status/' + output
+                    # Save to the picture file
+                    mss.tools.to_png(sct_img.rgb, sct_img.size, output='E:/xampp/htdocs/whatsapp/whatsapp_status/' + branch + sid + '.png')
+            except:
+                pass
+            finally:
 
-            closeBtnLocation = pyautogui.locateOnScreen("close.png")
-            pyautogui.click('close.png')
+                if screensize == (1600, 900):
+                    pyautogui.moveTo(469, 17)
+                    pyautogui.click()
+                elif screensize == (1366, 768):
+                    closeBtnLocation = pyautogui.locateOnScreen("close.png")
+                    pyautogui.click('close.png')
+
             time.sleep(1)
             pyautogui.press('enter')  # press the Enter key
 
