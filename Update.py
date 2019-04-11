@@ -154,8 +154,10 @@ def printer():
                     pyautogui.moveTo(469, 17)
                     pyautogui.click()
                 elif screensize == (1366, 768):
-                    closeBtnLocation = pyautogui.locateOnScreen("close.png")
-                    pyautogui.click('close.png')
+                    pyautogui.moveTo(470, 15)
+                    pyautogui.click()
+                    #closeBtnLocation = pyautogui.locateOnScreen("close.png")
+                    #pyautogui.click('close.png')
 
             time.sleep(1)
             pyautogui.press('enter')  # press the Enter key
